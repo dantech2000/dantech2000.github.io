@@ -8,3 +8,5 @@ enableEmoji = true
 title = "Daniel Rodriguez"
 author = "Daniel Rodriguez"
 description = "Personal Website"
+profilePicture = "images/profile_pic.jpg"
+mainSections = ["blog"]
