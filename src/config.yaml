@@ -1,7 +1,7 @@
 site:
   name: 'DanTech Blog'
   site: 'https://dantech2000.github.io'
-  base: '/dist'
+  base: '/'
   trailingSlash: false
 
   googleSiteVerificationId: false # Add your verification ID when ready
