@@ -1,5 +1,5 @@
 ---
-publishDate: 2025-01-15T00:00:00Z
+publishDate: 2025-07-14T00:00:00Z
 author: Daniel Rodriguez
 title: Hello World - Welcome to DanTech Blog
 excerpt: Welcome to my new blog! This is my first post where I introduce myself and share what you can expect from DanTech Blog.
