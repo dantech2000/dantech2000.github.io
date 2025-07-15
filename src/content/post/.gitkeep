@@ -1,0 +1,5 @@
+# This folder will contain your blog posts
+# 
+# Add your .md or .mdx files here following the format:
+# - Use frontmatter with title, description, publishDate, etc.
+# - Reference samples/posts/ for examples of post structure

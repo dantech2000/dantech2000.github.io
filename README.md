@@ -1,11 +1,6 @@
-# 🚀 AstroWind
+# Your Blog
 
-<img src="https://raw.githubusercontent.com/onwidget/.github/main/resources/astrowind/lighthouse-score.png" align="right"
-     alt="AstroWind Lighthouse Score" width="100" height="358">
-
-🌟 _Most *starred* & *forked* Astro theme in 2022, 2023 & 2024_. 🌟
-
-**AstroWind** is a free and open-source template to make your website using **[Astro 5.0](https://astro.build/) + [Tailwind CSS](https://tailwindcss.com/)**. Ready to start a new project and designed taking into account web best practices.
+Personal blog built with **[Astro 5.0](https://astro.build/) + [Tailwind CSS](https://tailwindcss.com/)** using the AstroWind template.
 
 - ✅ **Production-ready** scores in **PageSpeed Insights** reports.
 - ✅ Integration with **Tailwind CSS** supporting **Dark mode** and **_RTL_**.
@@ -64,20 +59,22 @@ We're embarking on an exciting journey with **AstroWind 2.0**, and we want you t
 
 <br>
 
-
-## TL;DR
+## Quick Start
 
 ```shell
-npm create astro@latest -- --template onwidget/astrowind
+npm install
+npm run dev
 ```
+
+Visit `http://localhost:4321` to see your blog.
 
 ## Getting started
 
-**AstroWind** tries to give you quick access to creating a website using [Astro 5.0](https://astro.build/) + [Tailwind CSS](https://tailwindcss.com/). It's a free theme which focuses on simplicity, good practices and high performance.
+This blog is built using [Astro 5.0](https://astro.build/) + [Tailwind CSS](https://tailwindcss.com/), focusing on simplicity, good practices and high performance.
 
-Very little vanilla javascript is used only to provide basic functionality so that each developer decides which framework (React, Vue, Svelte, Solid JS...) to use and how to approach their goals.
+To get started writing content, add your blog posts to `src/content/post/` and customize the site configuration in `src/config.yaml`.
 
-In this version the template supports all the options in the `output` configuration, `static`, `hybrid` and `server`, but the blog only works with `prerender = true`. We are working on the next version and aim to make it fully compatible with SSR.
+The blog is configured for static site generation and works perfectly with GitHub Pages.
 
 ### Project structure
 
