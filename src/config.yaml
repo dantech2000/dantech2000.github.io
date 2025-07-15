@@ -1,7 +1,7 @@
 site:
   name: 'DanTech Blog'
   site: 'https://dantech2000.github.io'
-  base: 'dantech2000.github.io'
+  base: '/dist/'
   trailingSlash: false
 
   googleSiteVerificationId: false # Add your verification ID when ready
@@ -23,8 +23,8 @@ metadata:
         height: 628
     type: website
   twitter:
-    handle: '@yourtwitterhandle'
-    site: '@yourtwitterhandle'
+    handle: '@DanTheD3v'
+    site: '@DanTheD3v'
     cardType: summary_large_image
 
 i18n:
