@@ -3,21 +3,25 @@ import Layout from '~/layouts/PageLayout.astro';
 import HeroText from '~/components/widgets/HeroText.astro';
 import ContactUs from '~/components/widgets/Contact.astro';
 import Features2 from '~/components/widgets/Features2.astro';
+import { Icon } from 'astro-icon/components';
+
+import { personalInfo } from '~/data/resume';
 
 const metadata = {
-  title: 'Contact',
+  title: `Contact - ${personalInfo.name}`,
+  description: `Get in touch with ${personalInfo.name}`,
 };
 ---
 
 <Layout metadata={metadata}>
   <!-- HeroText Widget ******************* -->
 
-  <HeroText tagline="Contact" title="Let's Connect!" />
+  <HeroText tagline="Contact" title="Get In Touch" subtitle="Have a question or want to work together? I'd love to hear from you." />
 
   <ContactUs
     id="form"
-    title="Drop us a message today!"
-    subtitle="For quicker answers, explore our FAQs section. You may find the solution you're looking  for right there! If not, our support team is delighted to help you."
+    title="Send me a message"
+    subtitle="Whether you have a project in mind, a question about DevOps, or just want to connect, feel free to reach out."
     inputs={[
       {
         type: 'text',
@@ -37,43 +41,60 @@ const metadata = {
       label:
         'By submitting this contact form, you acknowledge and agree to the collection of your personal information.',
     }}
-    description="Our support team typically responds within 24 business hours."
+    description="I typically respond within 24-48 hours."
   />
 
-  <!-- Features2 Widget ************** -->
-
+  <!-- Contact Info Section -->
   <Features2
-    title="We are here to help!"
+    title="Other Ways to Connect"
+    subtitle="Prefer a different method? Here are some other ways to reach me."
+    columns={3}
     items={[
       {
-        title: 'General support',
-        description: `Chat with us for inquiries related to account management, website navigation, payment issues, accessing purchased templates or general questions about the website's functionality.`,
-      },
-      {
-        title: 'Contact sales',
-        description:
-          'Chat with us for questions about purchases, customization options, licensing for commercial use, inquiries about specific template, etc.',
-      },
-      {
-        title: 'Technical support',
-        description:
-          'Chat with us when facing issues like template installation, problems editing difficulties, compatibility issues with software or download errors, or other technical challenges related to using the templates.',
-      },
-      {
-        title: 'Phone',
-        description: '+1 (234) 567-890',
-        icon: 'tabler:headset',
-      },
-      {
         title: 'Email',
-        description: 'contact@support.com',
+        description: personalInfo.email,
         icon: 'tabler:mail',
       },
       {
         title: 'Location',
-        description: '1234 Lorem Ipsum St, 12345, Miami, EEUU',
+        description: personalInfo.location,
         icon: 'tabler:map-pin',
+      },
+      {
+        title: 'Availability',
+        description: 'Open to freelance and consulting opportunities',
+        icon: 'tabler:calendar',
       },
     ]}
   />
+
+  <!-- Social Links Section -->
+  <div class="py-12 md:py-16">
+    <div class="max-w-3xl mx-auto text-center px-4">
+      <h2 class="text-2xl font-bold tracking-tight dark:text-white mb-4">Find Me Online</h2>
+      <p class="text-muted mb-8">
+        Connect with me on social platforms or check out my work.
+      </p>
+      <div class="flex justify-center gap-8">
+        <a
+          href="https://github.com/dantech2000"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 text-muted hover:text-primary dark:hover:text-blue-200 transition-colors"
+        >
+          <Icon name="tabler:brand-github" class="w-10 h-10" />
+          <span class="text-lg font-medium">GitHub</span>
+        </a>
+        <a
+          href="https://www.linkedin.com/in/dantech2000"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 text-muted hover:text-primary dark:hover:text-blue-200 transition-colors"
+        >
+          <Icon name="tabler:brand-linkedin" class="w-10 h-10" />
+          <span class="text-lg font-medium">LinkedIn</span>
+        </a>
+      </div>
+    </div>
+  </div>
 </Layout>

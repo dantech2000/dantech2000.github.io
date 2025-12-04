@@ -1,228 +1,210 @@
 ---
+import Content from '~/components/widgets/Content.astro';
 import Features2 from '~/components/widgets/Features2.astro';
-import Features3 from '~/components/widgets/Features3.astro';
 import Hero from '~/components/widgets/Hero.astro';
 import Stats from '~/components/widgets/Stats.astro';
-import Steps2 from '~/components/widgets/Steps2.astro';
 import Layout from '~/layouts/PageLayout.astro';
+import { Icon } from 'astro-icon/components';
+
+import { personalInfo, skills, certifications, languages } from '~/data/resume';
 
 const metadata = {
-  title: 'About us',
+  title: `About - ${personalInfo.name}`,
+  description: personalInfo.summary,
 };
+
+// Calculate years of experience (started March 2008)
+const startYear = 2008;
+const currentYear = new Date().getFullYear();
+const yearsExperience = currentYear - startYear;
+
+// Transform skills for display
+const skillItems = skills.slice(0, 6).map((category) => ({
+  title: category.category,
+  description: category.skills.map((s) => s.name).join(', '),
+  icon: category.icon || 'tabler:check',
+}));
 ---
 
 <Layout metadata={metadata}>
-  <!-- Hero Widget ******************* -->
-
-  <Hero
-    tagline="About us"
-    image={{
-      src: 'https://images.unsplash.com/photo-1559136555-9303baea8ebd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
-      alt: 'Caos Image',
-    }}
-  >
+  <!-- Hero Section -->
+  <Hero>
     <Fragment slot="title">
-      Elevate your online presence with our <br />
-      <span class="text-accent dark:text-white"> Beautiful Website Templates</span>
+      Hi, I'm <span class="text-accent dark:text-white">{personalInfo.name}</span>
     </Fragment>
 
     <Fragment slot="subtitle">
-      Donec efficitur, ipsum quis congue luctus, mauris magna convallis mauris, eu auctor nisi lectus non augue. Donec
-      quis lorem non massa vulputate efficitur ac at turpis. Sed tincidunt ex a nunc convallis, et lobortis nisi tempus.
-      Suspendisse vitae nisi eget tortor luctus maximus sed non lectus.
+      <span class="font-semibold">{personalInfo.title}</span> based in {personalInfo.location}
+    </Fragment>
+
+    <Fragment slot="content">
+      <div class="flex justify-center mt-8">
+        <img
+          src="https://github.com/dantech2000.png"
+          alt={personalInfo.name}
+          class="w-48 h-48 rounded-full shadow-lg border-4 border-primary/20 dark:border-blue-200/20"
+        />
+      </div>
     </Fragment>
   </Hero>
 
-  <!-- Stats Widget ****************** -->
+  <!-- About Me Section -->
+  <Content
+    id="about"
+    columns={1}
+    items={[]}
+    image={{
+      src: 'https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80',
+      alt: 'Server room with blue lights',
+    }}
+  >
+    <Fragment slot="content">
+      <h2 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-4">About Me</h2>
+      <p class="text-muted mb-6">
+        {personalInfo.summary}
+      </p>
+      <p class="text-muted mb-6">
+        My journey in tech started back in 2008 when I joined Western Dental as an IT Help Desk technician. 
+        Since then, I've grown through various roles - from CloudTech Support to Cloud Engineer, 
+        Site Reliability Engineer, and now DevOps Engineer at Codecademy.
+      </p>
+      <p class="text-muted">
+        I'm passionate about automation, infrastructure as code, and building reliable systems that scale. 
+        When I'm not working on cloud infrastructure or debugging production issues, 
+        I enjoy exploring new technologies and contributing to the DevOps community.
+      </p>
+    </Fragment>
 
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
+    </Fragment>
+  </Content>
+
+  <!-- Stats Section -->
   <Stats
-    title="Statistics about us"
+    title="By the Numbers"
     stats={[
-      { title: 'Offices', amount: '4' },
-      { title: 'Employees', amount: '248' },
-      { title: 'Templates', amount: '12' },
-      { title: 'Awards', amount: '24' },
+      { title: 'Years Experience', amount: `${yearsExperience}+` },
+      { title: 'Companies', amount: '4' },
+      { title: 'Certifications', amount: `${certifications.length}` },
+      { title: 'Languages Spoken', amount: `${languages.length}` },
     ]}
   />
 
-  <!-- Features3 Widget ************** -->
-
-  <Features3
-    title="Our templates"
-    subtitle="Etiam scelerisque, enim eget vestibulum luctus, nibh mauris blandit nulla, nec vestibulum risus justo ut enim. Praesent lacinia diam et ante imperdiet euismod."
+  <!-- Core Skills Section -->
+  <Features2
+    id="skills"
+    title="Core Expertise"
+    subtitle="The technologies and practices I specialize in"
+    tagline="What I Do"
     columns={3}
-    isBeforeContent={true}
-    items={[
-      {
-        title: 'Educational',
-        description:
-          'Morbi faucibus luctus quam, sit amet aliquet felis tempor id. Cras augue massa, ornare quis dignissim a, molestie vel nulla.',
-        icon: 'tabler:template',
-      },
-      {
-        title: 'Interior Design',
-        description:
-          'Vivamus porttitor, tortor convallis aliquam pretium, turpis enim consectetur elit, vitae egestas purus erat ac nunc nulla.',
-        icon: 'tabler:template',
-      },
-      {
-        title: 'Photography',
-        description:
-          'Duis sed lectus in nisl vehicula porttitor eget quis odio. Aliquam erat volutpat. Nulla eleifend nulla id sem fermentum.',
-        icon: 'tabler:template',
-      },
-    ]}
+    items={skillItems}
   />
 
-  <!-- Features3 Widget ************** -->
-
-  <Features3
-    columns={3}
-    isAfterContent={true}
+  <!-- What I Bring Section -->
+  <Content
+    isReversed
     items={[
       {
-        title: 'E-commerce',
-        description:
-          'Rutrum non odio at vehicula. Proin ipsum justo, dignissim in vehicula sit amet, dignissim id quam. Sed ac tincidunt sapien.',
-        icon: 'tabler:template',
+        title: 'Cloud Infrastructure',
+        description: 'Deep expertise in AWS services including EKS, RDS, Lambda, and CloudFormation. Experience with multi-cloud environments and CloudFlare.',
+        icon: 'tabler:cloud',
       },
       {
-        title: 'Blog',
-        description:
-          'Nullam efficitur volutpat sem sed fringilla. Suspendisse et enim eu orci volutpat laoreet ac vitae libero.',
-        icon: 'tabler:template',
+        title: 'Automation & CI/CD',
+        description: 'Building robust deployment pipelines with GitHub Actions, Jenkins, and CircleCI. Infrastructure automation with Terraform and Ansible.',
+        icon: 'tabler:robot',
       },
       {
-        title: 'Business',
-        description:
-          'Morbi et elit finibus, facilisis justo ut, pharetra ipsum. Donec efficitur, ipsum quis congue luctus, mauris magna.',
-        icon: 'tabler:template',
-      },
-      {
-        title: 'Branding',
-        description:
-          'Suspendisse vitae nisi eget tortor luctus maximus sed non lectus. Cras malesuada pretium placerat. Nullam venenatis dolor a ante rhoncus.',
-        icon: 'tabler:template',
-      },
-      {
-        title: 'Medical',
-        description:
-          'Vestibulum malesuada lacus id nibh posuere feugiat. Nam volutpat nulla a felis ultrices, id suscipit mauris congue. In hac habitasse platea dictumst.',
-        icon: 'tabler:template',
-      },
-      {
-        title: 'Fashion Design',
-        description:
-          'Maecenas eu tellus eget est scelerisque lacinia et a diam. Aliquam velit lorem, vehicula id fermentum et, rhoncus et purus.',
-        icon: 'tabler:template',
+        title: 'Reliability & Monitoring',
+        description: 'Implementing observability solutions with DataDog, Grafana, and Prometheus. On-call experience and incident response expertise.',
+        icon: 'tabler:chart-line',
       },
     ]}
     image={{
-      src: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80',
-      alt: 'Colorful Image',
+      src: 'https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80',
+      alt: 'Team collaboration',
     }}
-  />
+  >
+    <Fragment slot="content">
+      <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">What I Bring to the Table</h3>
+      <p class="text-muted mb-6">
+        With over {yearsExperience} years in the industry, I've developed a strong foundation in building 
+        and maintaining reliable infrastructure at scale.
+      </p>
+    </Fragment>
 
-  <!-- Steps2 Widget ****************** -->
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
+    </Fragment>
+  </Content>
 
-  <Steps2
-    title="Our values"
-    subtitle="Maecenas eu tellus eget est scelerisque lacinia et a diam. Aliquam velit lorem, vehicula id fermentum et, rhoncus et purus. Nulla facilisi. Vestibulum malesuada lacus."
-    items={[
-      {
-        title: 'Customer-centric approach',
-        description:
-          'Donec id nibh neque. Quisque et fermentum tortor. Fusce vitae dolor a mauris dignissim commodo. Ut eleifend luctus condimentum.',
-      },
-      {
-        title: 'Constant Improvement',
-        description:
-          'Phasellus laoreet fermentum venenatis. Vivamus dapibus pulvinar arcu eget mattis. Fusce eget mauris leo.',
-      },
-      {
-        title: 'Ethical Practices',
-        description:
-          'Vestibulum imperdiet libero et lectus molestie, et maximus augue porta. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.',
-      },
-    ]}
-  />
-
-  <!-- Steps2 Widget ****************** -->
-
-  <Steps2
-    title="Achievements"
-    subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sagittis, quam nec venenatis lobortis, mi risus tempus nulla, sed porttitor est nibh at nulla."
-    isReversed={true}
-    callToAction={{
-      text: 'See more',
-      href: '/',
-    }}
-    items={[
-      {
-        title: 'Global reach',
-        description: 'Nam malesuada urna in enim imperdiet tincidunt. Phasellus non tincidunt nisi, at elementum mi.',
-        icon: 'tabler:globe',
-      },
-      {
-        title: 'Positive customer feedback and reviews',
-        description:
-          'Cras semper nulla leo, eget laoreet erat cursus sed. Praesent faucibus massa in purus iaculis dictum.',
-        icon: 'tabler:message-star',
-      },
-      {
-        title: 'Awards and recognition as industry experts',
-        description:
-          'Phasellus lacinia cursus velit, eu malesuada magna pretium eu. Etiam aliquet tellus purus, blandit lobortis ex rhoncus vitae.',
-        icon: 'tabler:award',
-      },
-    ]}
-  />
-
-  <!-- Features2 Widget ************** -->
-
+  <!-- Projects Section -->
   <Features2
-    title="Our locations"
-    tagline="Find us"
-    columns={4}
-    items={[
-      {
-        title: 'EE.UU',
-        description: '1234 Lorem Ipsum St, 12345, Miami',
-      },
-      {
-        title: 'Spain',
-        description: '5678 Lorem Ipsum St, 56789, Madrid',
-      },
-      {
-        title: 'Australia',
-        description: '9012 Lorem Ipsum St, 90123, Sydney',
-      },
-      {
-        title: 'Brazil',
-        description: '3456 Lorem Ipsum St, 34567, São Paulo',
-      },
-    ]}
-  />
-
-  <!-- Features2 Widget ************** -->
-
-  <Features2
-    title="Technical Support"
-    tagline="Contact us"
+    id="projects"
+    title="Projects"
+    subtitle="Open source projects and tools I maintain"
+    tagline="My Work"
     columns={2}
     items={[
       {
-        title: 'Chat with us',
-        description:
-          'Integer luctus laoreet libero, auctor varius purus rutrum sit amet. Ut nec molestie nisi, quis eleifend mi.',
-        icon: 'tabler:messages',
+        title: 'Refresh',
+        description: 'A Go-based CLI tool to manage and monitor AWS EKS clusters and nodegroups with health checks, fast list/describe operations, and smart scaling.',
+        icon: 'tabler:brand-golang',
+        callToAction: {
+          text: 'View on GitHub',
+          href: 'https://github.com/dantech2000/refresh',
+          target: '_blank',
+        },
       },
       {
-        title: 'Call us',
-        description:
-          'Mauris faucibus finibus orci, in posuere elit viverra non. In hac habitasse platea dictumst. Cras lobortis metus a hendrerit congue.',
-        icon: 'tabler:headset',
+        title: 'flake.nix',
+        description: 'Personal Nix configuration for macOS using nix-darwin and Home Manager. Provides a declarative way to manage system and user-level configurations with a modular structure.',
+        icon: 'tabler:snowflake',
+        callToAction: {
+          text: 'View on GitHub',
+          href: 'https://github.com/dantech2000/flake.nix',
+          target: '_blank',
+        },
       },
     ]}
   />
+
+  <!-- Connect Section -->
+  <div class="py-12 md:py-20">
+    <div class="max-w-3xl mx-auto text-center px-4">
+      <h2 class="text-3xl font-bold tracking-tight dark:text-white mb-4">Let's Connect</h2>
+      <p class="text-muted mb-8">
+        I'm always interested in discussing DevOps practices, cloud architecture, 
+        or new opportunities. Feel free to reach out!
+      </p>
+      <div class="flex justify-center gap-8">
+        <a
+          href="https://github.com/dantech2000"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 text-muted hover:text-primary dark:hover:text-blue-200 transition-colors"
+        >
+          <Icon name="tabler:brand-github" class="w-10 h-10" />
+          <span class="text-lg font-medium">GitHub</span>
+        </a>
+        <a
+          href="https://www.linkedin.com/in/dantech2000"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 text-muted hover:text-primary dark:hover:text-blue-200 transition-colors"
+        >
+          <Icon name="tabler:brand-linkedin" class="w-10 h-10" />
+          <span class="text-lg font-medium">LinkedIn</span>
+        </a>
+        <a
+          href={`mailto:${personalInfo.email}`}
+          class="inline-flex items-center gap-2 text-muted hover:text-primary dark:hover:text-blue-200 transition-colors"
+        >
+          <Icon name="tabler:mail" class="w-10 h-10" />
+          <span class="text-lg font-medium">Email</span>
+        </a>
+      </div>
+    </div>
+  </div>
 </Layout>

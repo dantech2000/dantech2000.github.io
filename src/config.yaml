@@ -1,6 +1,6 @@
 site:
-  name: 'DanTech Blog'
-  site: 'https://dantech2000.github.io'
+  name: 'DevOps Dan'
+  site: 'https://drod.dev'
   base: '/'
   trailingSlash: false
 
@@ -9,14 +9,14 @@ site:
 # Default SEO metadata
 metadata:
   title:
-    default: 'DanTech Blog'
-    template: '%s — DanTech Blog'
-  description: 'Technology insights, tutorials, and thoughts from a developer.'
+    default: 'DevOps Dan'
+    template: '%s — DevOps Dan'
+  description: 'DevOps insights, tutorials, and thoughts from Daniel Rodriguez.'
   robots:
     index: true
     follow: true
   openGraph:
-    site_name: 'DanTech Blog'
+    site_name: 'DevOps Dan'
     images:
       - url: '~/assets/images/default.png'
         width: 1200
