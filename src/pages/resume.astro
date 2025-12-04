@@ -1,0 +1,140 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import Hero from '~/components/widgets/Hero.astro';
+import Steps from '~/components/widgets/Steps.astro';
+import Features2 from '~/components/widgets/Features2.astro';
+import { Icon } from 'astro-icon/components';
+
+import { personalInfo, experience, skills, certifications, languages } from '~/data/resume';
+
+const metadata = {
+  title: `Resume - ${personalInfo.name}`,
+  description: personalInfo.summary,
+};
+
+// Transform experience data for the Steps/Timeline widget
+const experienceItems = experience.map((job) => {
+  const dateRange = `${job.location} | ${job.startDate} - ${job.endDate}`;
+  const responsibilitiesList = job.responsibilities.map((r) => `<li>${r}</li>`).join('');
+  return {
+    title: `${job.title} at ${job.company}`,
+    description: `<span class="text-sm text-muted">${dateRange}</span><ul class="mt-2 list-disc list-inside text-muted">${responsibilitiesList}</ul>`,
+    icon: job.icon || 'tabler:briefcase',
+  };
+});
+
+// Transform skills data for Features2 widget - flatten categories
+const skillItems = skills.map((category) => ({
+  title: category.category,
+  description: category.skills.map((s) => s.name).join(', '),
+  icon: category.icon || 'tabler:check',
+}));
+
+// Transform certifications for Features2 widget
+const certificationItems = certifications.map((cert) => ({
+  title: cert.title,
+  description: `${cert.issuer}<br/><span class="text-sm text-muted">${cert.date}</span>`,
+  icon: cert.icon || 'tabler:certificate',
+}));
+
+// Transform languages for Features2 widget
+const languageItems = languages.map((lang) => ({
+  title: lang.name,
+  description: lang.proficiency,
+  icon: lang.icon || 'tabler:language',
+}));
+---
+
+<Layout metadata={metadata}>
+  <!-- Hero Section - Personal Info -->
+  <Hero tagline="Resume" id="resume-hero">
+    <Fragment slot="title">
+      {personalInfo.name}
+    </Fragment>
+
+    <Fragment slot="subtitle">
+      <span class="font-semibold text-primary dark:text-blue-200">{personalInfo.title}</span>
+      <br />
+      <span class="text-sm">{personalInfo.location}</span>
+    </Fragment>
+
+    <Fragment slot="content">
+      <p class="text-muted max-w-3xl mx-auto mt-6">
+        {personalInfo.summary}
+      </p>
+    </Fragment>
+  </Hero>
+
+  <!-- Social Links -->
+  <div class="relative z-10 flex justify-center gap-8 pb-6 md:pb-8 -mt-8 md:-mt-12">
+    <a
+      href="https://github.com/dantech2000"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="inline-flex items-center gap-2 text-muted hover:text-primary dark:hover:text-blue-200 transition-colors"
+    >
+      <Icon name="tabler:brand-github" class="w-10 h-10" />
+      <span class="text-lg font-medium">GitHub</span>
+    </a>
+    <a
+      href="https://www.linkedin.com/in/dantech2000"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="inline-flex items-center gap-2 text-muted hover:text-primary dark:hover:text-blue-200 transition-colors"
+    >
+      <Icon name="tabler:brand-linkedin" class="w-10 h-10" />
+      <span class="text-lg font-medium">LinkedIn</span>
+    </a>
+  </div>
+
+  <!-- Employment History - Timeline -->
+  <Steps
+    id="experience"
+    title="Employment History"
+    subtitle="A timeline of my professional experience in DevOps and Site Reliability Engineering."
+    items={experienceItems}
+    classes={{
+      container: 'max-w-4xl py-6 md:py-8 lg:py-10',
+    }}
+  />
+
+  <!-- Skills Section -->
+  <Features2
+    id="skills"
+    title="Skills & Expertise"
+    subtitle="Technical skills and tools I work with regularly."
+    tagline="Technical Skills"
+    columns={3}
+    items={skillItems}
+    classes={{
+      container: 'py-6 md:py-8 lg:py-10',
+    }}
+  />
+
+  <!-- Certifications Section -->
+  <Features2
+    id="certifications"
+    title="Certifications"
+    subtitle="Professional certifications and credentials."
+    tagline="Credentials"
+    columns={2}
+    items={certificationItems}
+    classes={{
+      container: 'py-6 md:py-8 lg:py-10',
+    }}
+  />
+
+  <!-- Languages Section -->
+  <Features2
+    id="languages"
+    title="Languages"
+    subtitle="Languages I speak and write."
+    tagline="Communication"
+    columns={2}
+    items={languageItems}
+    classes={{
+      container: 'py-6 md:py-8 lg:py-10',
+    }}
+  />
+</Layout>
+
