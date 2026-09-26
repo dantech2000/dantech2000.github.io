@@ -12,6 +12,7 @@ import { projects } from '~/data/projects';
 import { jobs, yearsInOps } from '~/data/resume';
 import { channels } from '~/data/site';
 import { getPosts, formatDate } from '~/lib/posts';
+import { graph, person, website } from '~/lib/seo';
 
 const posts = (await getPosts()).slice(0, 3);
 const years = yearsInOps();
@@ -27,7 +28,7 @@ const spec = [
 const stack = ['AWS', 'Terraform', 'Kubernetes / EKS', 'GitHub Actions', 'Datadog', 'Cloudflare', 'Go', 'Rust', 'Swift'];
 ---
 
-<Base>
+<Base jsonLd={graph(website, person)}>
   <!-- HERO -->
   <section class="dr-grid-bg dr-scan relative overflow-hidden border-b border-line">
     <div class="dr-scanbar"></div>
