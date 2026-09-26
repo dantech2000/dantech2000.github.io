@@ -3,7 +3,7 @@ export const site = {
   author: 'Daniel Rodriguez',
   url: 'https://drod.dev',
   description:
-    'Daniel Rodriguez, DevOps engineer in Los Angeles. Cloud infrastructure, Terraform, Kubernetes, CI/CD, and the tools I build along the way.',
+    'Daniel Rodriguez is a DevOps engineer in Los Angeles working with AWS, Terraform, Kubernetes and CI/CD. Projects include Refresh, digg and Amanu.',
   location: { label: 'Los Angeles', lat: '34.05°N', lon: '118.24°W' },
 };
 

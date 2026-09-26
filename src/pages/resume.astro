@@ -2,15 +2,22 @@
 import Base from '~/layouts/Base.astro';
 import SectionHeader from '~/components/SectionHeader.astro';
 import Reticle from '~/components/Reticle.astro';
-import { jobs, skills, certifications, languages, summary, careerStart } from '~/data/resume';
-import { channels } from '~/data/site';
+import { jobs, skills, certifications, languages, summary, careerStart, yearsInOps } from '~/data/resume';
+import { channels, site } from '~/data/site';
+import { graph, person, website, profilePage } from '~/lib/seo';
 
 const linkedin = channels.find((c) => c.name === 'LinkedIn')!;
 const github = channels.find((c) => c.name === 'GitHub')!;
 const pad = (n: number) => String(n).padStart(2, '0');
+const description = `Resume of Daniel Rodriguez, DevOps and site reliability engineer with ${yearsInOps()}+ years at Codecademy, GoDaddy and Media Temple. AWS, Terraform, Kubernetes, CI/CD.`;
 ---
 
-<Base title="Resume" description={`Resume of Daniel Rodriguez, DevOps engineer. ${summary}`}>
+<Base
+  title={`Resume — ${site.author}, DevOps Engineer`}
+  description={description}
+  type="profile"
+  jsonLd={graph(website, person, profilePage(`${site.url}/resume`))}
+>
   <!-- HEADER -->
   <section class="dr-grid-bg dr-scan relative overflow-hidden border-b border-line">
     <div class="dr-scanbar"></div>

@@ -2,6 +2,7 @@
 import Base from '~/layouts/Base.astro';
 import SectionHeader from '~/components/SectionHeader.astro';
 import { getPosts, formatDate } from '~/lib/posts';
+import { site } from '~/data/site';
 
 // /blog is only built once at least one published post exists.
 export async function getStaticPaths() {
@@ -12,7 +13,7 @@ export async function getStaticPaths() {
 const { posts } = Astro.props;
 ---
 
-<Base title="Log" description="Notes on DevOps, cloud infrastructure, and the tools I build.">
+<Base title={`Log — ${site.name}`} description="Notes from Daniel Rodriguez on DevOps, cloud infrastructure and the tools he builds.">
   <section class="dr-section">
     <div class="dr-wrap">
       <SectionHeader eyebrow="[05] // Transmission log" title="Writing" size="t-display-4 lg:t-display-2">
