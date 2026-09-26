@@ -1,140 +1,174 @@
 ---
-import Layout from '~/layouts/PageLayout.astro';
-import Hero from '~/components/widgets/Hero.astro';
-import Steps from '~/components/widgets/Steps.astro';
-import Features2 from '~/components/widgets/Features2.astro';
-import { Icon } from 'astro-icon/components';
+import Base from '~/layouts/Base.astro';
+import SectionHeader from '~/components/SectionHeader.astro';
+import Reticle from '~/components/Reticle.astro';
+import { jobs, skills, certifications, languages, summary, careerStart } from '~/data/resume';
+import { channels } from '~/data/site';
 
-import { personalInfo, experience, skills, certifications, languages } from '~/data/resume';
-
-const metadata = {
-  title: `Resume - ${personalInfo.name}`,
-  description: personalInfo.summary,
-};
-
-// Transform experience data for the Steps/Timeline widget
-const experienceItems = experience.map((job) => {
-  const dateRange = `${job.location} | ${job.startDate} - ${job.endDate}`;
-  const responsibilitiesList = job.responsibilities.map((r) => `<li>${r}</li>`).join('');
-  return {
-    title: `${job.title} at ${job.company}`,
-    description: `<span class="text-sm text-muted">${dateRange}</span><ul class="mt-2 list-disc list-inside text-muted">${responsibilitiesList}</ul>`,
-    icon: job.icon || 'tabler:briefcase',
-  };
-});
-
-// Transform skills data for Features2 widget - flatten categories
-const skillItems = skills.map((category) => ({
-  title: category.category,
-  description: category.skills.map((s) => s.name).join(', '),
-  icon: category.icon || 'tabler:check',
-}));
-
-// Transform certifications for Features2 widget
-const certificationItems = certifications.map((cert) => ({
-  title: cert.title,
-  description: `${cert.issuer}<br/><span class="text-sm text-muted">${cert.date}</span>`,
-  icon: cert.icon || 'tabler:certificate',
-}));
-
-// Transform languages for Features2 widget
-const languageItems = languages.map((lang) => ({
-  title: lang.name,
-  description: lang.proficiency,
-  icon: lang.icon || 'tabler:language',
-}));
+const linkedin = channels.find((c) => c.name === 'LinkedIn')!;
+const github = channels.find((c) => c.name === 'GitHub')!;
+const pad = (n: number) => String(n).padStart(2, '0');
 ---
 
-<Layout metadata={metadata}>
-  <!-- Hero Section - Personal Info -->
-  <Hero tagline="Resume" id="resume-hero">
-    <Fragment slot="title">
-      {personalInfo.name}
-    </Fragment>
+<Base title="Resume" description={`Resume of Daniel Rodriguez, DevOps engineer. ${summary}`}>
+  <!-- HEADER -->
+  <section class="dr-grid-bg dr-scan relative overflow-hidden border-b border-line">
+    <div class="dr-scanbar"></div>
+    <Reticle class="pointer-events-none absolute top-12 -right-24 w-72 opacity-60 md:right-12 md:w-[448px] md:opacity-100" />
+    <div class="dr-wrap relative z-[2] flex flex-col gap-12 pt-6 pb-16 lg:gap-16 lg:pb-24">
+      <div class="t-meta flex justify-between gap-4">
+        <span>Personnel file // DR-{careerStart.getUTCFullYear()}</span>
+        <span class="dr-flicker hidden md:inline">Clearance: public</span>
+        <span>Sheet 02 / 04</span>
+      </div>
+      <div class="dr-titleblock">
+        <span class="dr-eyebrow">▸ Resume / curriculum vitae</span>
+        <h1 class="t-display-4 md:t-display-3 lg:t-display-2 dr-jitter">
+          Daniel<br /><span class="dr-glitch" data-text="Rodriguez">Rodriguez</span><span
+            class="dr-blink text-signal"
+            aria-hidden="true">_</span
+          >
+        </h1>
+      </div>
+      <div class="grid items-end gap-x-6 gap-y-8 lg:grid-cols-12">
+        <div class="flex flex-col gap-6 lg:col-span-7 lg:gap-8">
+          <p class="t-body lg:t-body-l">{summary}</p>
+          <div class="flex flex-col gap-2 sm:flex-row sm:gap-4">
+            <a class="dr-btn dr-btn--primary" href={linkedin.href} rel="me"
+              >Message on LinkedIn <span aria-hidden="true">↗</span></a
+            >
+          </div>
+        </div>
+        <dl class="dr-panel t-data lg:col-span-4 lg:col-start-9">
+          <div class="dr-spec__row"><dt class="text-muted">Role</dt><dd>DevOps Engineer</dd></div>
+          <div class="dr-spec__row"><dt class="text-muted">Base</dt><dd>Los Angeles, USA</dd></div>
+          <div class="dr-spec__row">
+            <dt class="text-muted">Links</dt>
+            <dd class="flex gap-4">
+              <a class="hover:text-signal" href={github.href} rel="me">GitHub ↗</a>
+              <a class="hover:text-signal" href={linkedin.href} rel="me">LinkedIn ↗</a>
+            </dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+    <div class="dr-hazard absolute right-0 bottom-0 left-0 z-[5] h-2 lg:h-2.5"></div>
+  </section>
 
-    <Fragment slot="subtitle">
-      <span class="font-semibold text-primary dark:text-blue-200">{personalInfo.title}</span>
-      <br />
-      <span class="text-sm">{personalInfo.location}</span>
-    </Fragment>
+  <!-- EXPERIENCE -->
+  <section class="dr-section">
+    <div class="dr-wrap">
+      <SectionHeader eyebrow="[A] // Service record" title="Experience">
+        <span class="t-meta">{pad(jobs.length)} entries — {careerStart.getUTCFullYear()} → present</span>
+      </SectionHeader>
+      <ol class="dr-rule">
+        {
+          jobs.map((job, i) => {
+            const current = i === 0;
+            return (
+              <li class="dr-row grid-cols-[16px_minmax(0,1fr)] items-start gap-y-4 lg:grid-cols-[16px_minmax(0,4fr)_minmax(0,8fr)]">
+                <div class="relative row-span-2 self-stretch lg:row-span-1" aria-hidden="true">
+                  <span class="absolute -top-4 -bottom-4 left-[7px] w-0.5 bg-line-strong lg:-top-6 lg:-bottom-6" />
+                  <span
+                    class:list={[
+                      'absolute top-0.5 left-0 size-4 border-2',
+                      current ? 'border-signal bg-signal' : 'border-muted bg-ground',
+                    ]}
+                  />
+                </div>
+                <div class="flex flex-col gap-2">
+                  <span class:list={['t-label', current ? 'text-signal' : 'text-muted']}>
+                    {pad(jobs.length - i)} — {job.start} — {job.end}
+                  </span>
+                  <h3 class="t-display-7 lg:t-display-6 dr-glitch-hover">{job.title}</h3>
+                  <span class="t-data">{job.company}</span>
+                  <span class="t-meta">{job.location}</span>
+                </div>
+                <ul class="grid gap-x-8 gap-y-3 md:grid-cols-2">
+                  {job.items.map((item) => (
+                    <li class="t-body-s flex gap-3">
+                      <span class="font-mono text-xs leading-[22px] text-signal" aria-hidden="true">
+                        ▸
+                      </span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </li>
+            );
+          })
+        }
+      </ol>
+    </div>
+  </section>
 
-    <Fragment slot="content">
-      <p class="text-muted max-w-3xl mx-auto mt-6">
-        {personalInfo.summary}
-      </p>
-    </Fragment>
-  </Hero>
+  <!-- SKILLS -->
+  <section class="dr-section">
+    <div class="dr-wrap">
+      <SectionHeader eyebrow="[B] // Loadout" title="Skills">
+        <span class="t-meta">{pad(skills.length)} modules</span>
+      </SectionHeader>
+      <ul class="grid border-t border-l border-line md:grid-cols-2 lg:grid-cols-3">
+        {
+          skills.map((s, i) => (
+            <li class="flex flex-col gap-4 border-r border-b border-line p-4 lg:p-6">
+              <div class="t-meta flex justify-between">
+                <span>SK-{pad(i + 1)}</span>
+                <span>{pad(s.items.length)} items</span>
+              </div>
+              <h3 class="t-display-7">{s.category}</h3>
+              <ul class="dr-tags">
+                {s.items.map((t) => (
+                  <li class="dr-tag">{t}</li>
+                ))}
+              </ul>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
 
-  <!-- Social Links -->
-  <div class="relative z-10 flex justify-center gap-8 pb-6 md:pb-8 -mt-8 md:-mt-12">
-    <a
-      href="https://github.com/dantech2000"
-      target="_blank"
-      rel="noopener noreferrer"
-      class="inline-flex items-center gap-2 text-muted hover:text-primary dark:hover:text-blue-200 transition-colors"
-    >
-      <Icon name="tabler:brand-github" class="w-10 h-10" />
-      <span class="text-lg font-medium">GitHub</span>
-    </a>
-    <a
-      href="https://www.linkedin.com/in/dantech2000"
-      target="_blank"
-      rel="noopener noreferrer"
-      class="inline-flex items-center gap-2 text-muted hover:text-primary dark:hover:text-blue-200 transition-colors"
-    >
-      <Icon name="tabler:brand-linkedin" class="w-10 h-10" />
-      <span class="text-lg font-medium">LinkedIn</span>
-    </a>
-  </div>
-
-  <!-- Employment History - Timeline -->
-  <Steps
-    id="experience"
-    title="Employment History"
-    subtitle="A timeline of my professional experience in DevOps and Site Reliability Engineering."
-    items={experienceItems}
-    classes={{
-      container: 'max-w-4xl py-6 md:py-8 lg:py-10',
-    }}
-  />
-
-  <!-- Skills Section -->
-  <Features2
-    id="skills"
-    title="Skills & Expertise"
-    subtitle="Technical skills and tools I work with regularly."
-    tagline="Technical Skills"
-    columns={3}
-    items={skillItems}
-    classes={{
-      container: 'py-6 md:py-8 lg:py-10',
-    }}
-  />
-
-  <!-- Certifications Section -->
-  <Features2
-    id="certifications"
-    title="Certifications"
-    subtitle="Professional certifications and credentials."
-    tagline="Credentials"
-    columns={2}
-    items={certificationItems}
-    classes={{
-      container: 'py-6 md:py-8 lg:py-10',
-    }}
-  />
-
-  <!-- Languages Section -->
-  <Features2
-    id="languages"
-    title="Languages"
-    subtitle="Languages I speak and write."
-    tagline="Communication"
-    columns={2}
-    items={languageItems}
-    classes={{
-      container: 'py-6 md:py-8 lg:py-10',
-    }}
-  />
-</Layout>
-
+  <!-- CERTIFICATIONS + LANGUAGES -->
+  <section class="dr-section">
+    <div class="dr-wrap grid gap-x-6 gap-y-16 lg:grid-cols-12">
+      <div class="flex flex-col gap-6 lg:col-span-7 lg:gap-8">
+        <div class="dr-titleblock">
+          <span class="dr-eyebrow">[C] // Credentials</span>
+          <h2 class="t-display-4 dr-glitch-hover">Certifications</h2>
+        </div>
+        <ul class="flex flex-col gap-2 lg:gap-4">
+          {
+            certifications.map((c) => (
+              <li class="dr-channel">
+                <span class="flex flex-col gap-2">
+                  <span class="t-display-7">{c.title}</span>
+                  <span class="t-meta">
+                    {c.issuer} · {c.dates}
+                  </span>
+                </span>
+                <span class="dr-tag shrink-0 text-muted">{c.status}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <div class="flex flex-col gap-6 lg:col-span-4 lg:col-start-9 lg:gap-8">
+        <div class="dr-titleblock">
+          <span class="dr-eyebrow">[D] // Comms</span>
+          <h2 class="t-display-4 dr-glitch-hover">Languages</h2>
+        </div>
+        <dl class="dr-rule">
+          {
+            languages.map((l) => (
+              <div class="dr-row grid-cols-[1fr_auto]">
+                <dt class="t-display-7">{l.name}</dt>
+                <dd class="t-data text-muted">{l.level}</dd>
+              </div>
+            ))
+          }
+        </dl>
+      </div>
+    </div>
+  </section>
+</Base>

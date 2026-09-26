@@ -1,9 +1,10 @@
 ---
-import { SITE } from 'astrowind:config';
 ---
 
-<span
-  class="self-center ml-2 rtl:ml-0 rtl:mr-2 text-2xl md:text-xl font-bold text-gray-900 whitespace-nowrap dark:text-white"
->
-  🚀 {SITE?.name}
-</span>
+<a class="dr-logo" href="/" aria-label="DevOps Dan, home">
+  <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true">
+    <rect x="1" y="1" width="20" height="20" style="fill: none; stroke: var(--color-signal); stroke-width: 2"></rect>
+    <rect x="6" y="6" width="10" height="10" class="dr-flicker" style="fill: var(--color-signal)"></rect>
+  </svg>
+  <span class="dr-glitch dr-glitch--slow" data-text="DR//DEV" aria-hidden="true">DR//DEV</span>
+</a>

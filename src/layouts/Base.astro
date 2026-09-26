@@ -1,0 +1,66 @@
+---
+import '@fontsource-variable/big-shoulders-display';
+import '@fontsource-variable/archivo';
+import '@fontsource-variable/jetbrains-mono';
+import '~/styles/global.css';
+
+import Nav from '~/components/Nav.astro';
+import Footer from '~/components/Footer.astro';
+import { site } from '~/data/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description = site.description } = Astro.props;
+const fullTitle = title ? `${title} — ${site.name}` : `${site.name} — Daniel Rodriguez, DevOps Engineer`;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta name="theme-color" content="#0d0e0b" />
+    <meta name="generator" content={Astro.generator} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@DanTheD3v" />
+  </head>
+  <body>
+    <svg width="0" height="0" style="position: absolute" aria-hidden="true">
+      <filter id="dr-glitchf">
+        <feTurbulence type="fractalNoise" baseFrequency="0.001 0.35" numOctaves="1" result="n">
+          <animate
+            attributeName="baseFrequency"
+            values="0.001 0.35;0.001 0.9;0.001 0.08;0.001 0.5"
+            dur="0.35s"
+            repeatCount="indefinite"></animate>
+        </feTurbulence>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="22" xChannelSelector="R" yChannelSelector="G"
+        ></feDisplacementMap>
+      </filter>
+    </svg>
+    <a
+      href="#main"
+      class="dr-btn dr-btn--primary sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[60]"
+      >Skip to content</a
+    >
+    <Nav />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

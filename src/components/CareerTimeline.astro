@@ -1,0 +1,41 @@
+---
+import { jobs } from '~/data/resume';
+
+// One node per role start year, oldest first. The last node is the current role.
+const years = jobs.map((job) => job.start.slice(-4)).reverse();
+const start = 16;
+const end = 336;
+const step = (end - start) / (years.length - 1);
+const nodes = years.map((year, i) => ({ year, x: start + i * step, current: i === years.length - 1 }));
+---
+
+<svg viewBox="0 0 360 96" class="block w-full max-w-[360px]" role="img" aria-label={`Career timeline from ${years[0]} to ${years.at(-1)}`}>
+  <text x="4" y="16" class="dr-mono-svg" style="font-size: 10px; fill: var(--color-muted)">git log --oneline career</text>
+  <line x1={start} y1="48" x2={end} y2="48" style="stroke: var(--color-line-strong); stroke-width: 2"></line>
+  <line x1={start} y1="48" x2={end} y2="48" class="dr-dash-slow" style="stroke: var(--color-signal); stroke-width: 2"></line>
+  {
+    nodes.map((n) =>
+      n.current ? (
+        <>
+          <circle cx={n.x} cy="48" r="8" style="fill: var(--color-signal)" />
+          <circle cx={n.x} cy="48" r="8" class="dr-pulse" style="fill: none; stroke: var(--color-signal); stroke-width: 2" />
+        </>
+      ) : (
+        <circle cx={n.x} cy="48" r="6" style="fill: var(--color-ground); stroke: var(--color-ink); stroke-width: 2" />
+      )
+    )
+  }
+  {
+    nodes.map((n) => (
+      <text
+        x={n.x}
+        y="80"
+        text-anchor="middle"
+        class="dr-mono-svg"
+        style={`font-size: 10px; fill: var(${n.current ? '--color-signal' : '--color-muted'})`}
+      >
+        {n.year}
+      </text>
+    ))
+  }
+</svg>

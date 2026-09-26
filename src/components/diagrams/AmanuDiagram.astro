@@ -1,0 +1,31 @@
+---
+// Bar heights and phase offsets for the waveform. The middle run is drawn in signal.
+const bars = [
+  [20, 0.1], [44, 0.5], [80, 0.2], [120, 0.8], [60, 0.3], [150, 0.9], [90, 0.4], [40, 0.7],
+  [110, 0.15], [170, 0.6], [130, 0.25], [70, 0.95], [160, 0.35], [100, 0.75], [50, 0.05],
+  [140, 0.55], [180, 0.45], [90, 0.85], [60, 0.2], [120, 0.65], [40, 0.3], [80, 0.7], [30, 0.1], [16, 0.5],
+].map(([h, delay], i) => ({ x: 72 + i * 12, y: 128 - h / 2, h, delay, hot: i >= 9 && i <= 13 }));
+---
+
+<svg viewBox="0 0 432 256" class="block h-full w-full" role="img" aria-label="Live voice waveform while dictating">
+  <line x1="16" y1="128" x2="416" y2="128" style="stroke: var(--color-line-strong); stroke-width: 1; stroke-dasharray: 2 4"></line>
+  {
+    bars.map((b) => (
+      <rect
+        class="dr-bar"
+        x={b.x}
+        y={b.y}
+        width="6"
+        height={b.h}
+        style={`animation-delay: -${b.delay}s; fill: var(${b.hot ? '--color-signal' : '--color-ink'})`}
+      />
+    ))
+  }
+  <rect x="16" y="15" width="8" height="12" rx="4" style="fill: none; stroke: var(--color-ink); stroke-width: 1.5"></rect>
+  <g class="dr-mono-svg" style="font-size: 11px; fill: var(--color-muted)">
+    <text x="32" y="26">HOLD [fn] TO TALK</text>
+    <text x="16" y="240">ON-DEVICE // 0 BYTES SENT</text>
+    <text x="352" y="240">SWIFT 6</text>
+  </g>
+  <text x="360" y="26" class="dr-mono-svg dr-blink" style="font-size: 11px; fill: var(--color-signal)">● REC</text>
+</svg>

@@ -1,0 +1,16 @@
+---
+// Bar widths in px, alternating bar/gap. Decorative only.
+const pattern = [3, 2, 1, 2, 4, 2, 1, 2, 2, 3, 1, 2, 5, 2, 1, 2, 2, 3, 3, 2, 1, 2, 1, 2, 4, 2, 2, 2, 1, 2, 3, 3, 1, 2, 5, 2, 1, 2, 2, 3, 1, 2, 3, 2, 1, 2, 4, 2, 2, 2, 1, 2, 3, 3, 1, 2, 5, 2, 1, 2, 2, 3, 1, 2, 4, 3, 2];
+let x = 0;
+const bars: { x: number; w: number }[] = [];
+pattern.forEach((w, i) => {
+  if (i % 2 === 0) bars.push({ x, w });
+  x += w;
+});
+---
+
+<svg width="152" height="32" viewBox={`0 0 ${x} 30`} preserveAspectRatio="none" aria-hidden="true">
+  <g class="dr-flicker" style="fill: var(--color-ink)">
+    {bars.map((b) => <rect x={b.x} width={b.w} height="30" />)}
+  </g>
+</svg>

@@ -1,0 +1,19 @@
+---
+interface Props {
+  eyebrow: string;
+  title: string;
+  /** Type class for the title. Defaults to display-4 on phones and display-3 from lg up. */
+  size?: string;
+  class?: string;
+}
+
+const { eyebrow, title, size = 't-display-4 lg:t-display-3', class: className } = Astro.props;
+---
+
+<div class:list={['dr-section-head', className]}>
+  <div class="dr-titleblock">
+    <span class="dr-eyebrow">{eyebrow}</span>
+    <h2 class:list={[size, 'dr-glitch-hover']} set:html={title} />
+  </div>
+  <slot />
+</div>
