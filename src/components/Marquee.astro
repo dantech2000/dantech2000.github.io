@@ -1,0 +1,21 @@
+---
+interface Props {
+  items: string[];
+}
+const { items } = Astro.props;
+// Rendered twice so the -50% translate loops seamlessly.
+const loop = [...items, ...items];
+---
+
+<div class="dr-marquee" aria-label={items.join(', ')} role="img">
+  <div class="dr-marquee__track" aria-hidden="true">
+    {
+      loop.map((item) => (
+        <>
+          <span>{item}</span>
+          <span>✕</span>
+        </>
+      ))
+    }
+  </div>
+</div>

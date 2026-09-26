@@ -1,0 +1,43 @@
+---
+import { render } from 'astro:content';
+import Base from '~/layouts/Base.astro';
+import { getPosts, formatDate } from '~/lib/posts';
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<Base title={post.data.title} description={post.data.description}>
+  <article class="dr-section">
+    <div class="dr-wrap flex flex-col gap-8 lg:gap-16">
+      <header class="flex flex-col gap-6 border-b border-line pb-8 lg:pb-16">
+        <a class="t-meta self-start hover:text-signal" href="/blog">← All entries</a>
+        <div class="dr-titleblock">
+          <span class="dr-eyebrow">
+            <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+            {post.data.draft && ' // Draft'}
+          </span>
+          <h1 class="t-display-4 lg:t-display-3 max-w-[16ch] normal-case">{post.data.title}</h1>
+        </div>
+        <p class="t-body lg:t-body-l">{post.data.description}</p>
+        {
+          post.data.tags.length > 0 && (
+            <ul class="dr-tags">
+              {post.data.tags.map((tag) => (
+                <li class="dr-tag">{tag}</li>
+              ))}
+            </ul>
+          )
+        }
+      </header>
+      <div class="dr-prose">
+        <Content />
+      </div>
+    </div>
+  </article>
+</Base>

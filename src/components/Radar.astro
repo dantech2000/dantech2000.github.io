@@ -1,0 +1,35 @@
+---
+---
+
+<div class="relative flex h-72 items-center justify-center border-b border-line bg-well">
+  <svg viewBox="0 0 280 280" width="256" height="256" role="img" aria-label="Radar sweep centered on Los Angeles">
+    <g style="fill: none; stroke: var(--color-line); stroke-width: 1">
+      <circle cx="140" cy="140" r="130"></circle>
+      <circle cx="140" cy="140" r="96"></circle>
+      <circle cx="140" cy="140" r="62"></circle>
+      <circle cx="140" cy="140" r="28"></circle>
+      <line x1="0" y1="140" x2="280" y2="140"></line>
+      <line x1="140" y1="0" x2="140" y2="280"></line>
+      <line x1="48" y1="48" x2="232" y2="232" style="stroke-dasharray: 2 5"></line>
+      <line x1="232" y1="48" x2="48" y2="232" style="stroke-dasharray: 2 5"></line>
+    </g>
+    <circle cx="140" cy="140" r="122" style="fill: none; stroke: var(--color-line-strong); stroke-width: 8; stroke-dasharray: 1.2 11.6"></circle>
+    <g class="dr-spin-rev">
+      <circle cx="140" cy="140" r="112" style="fill: none; stroke: var(--color-signal); stroke-width: 1.5; stroke-dasharray: 40 136; opacity: 0.8"></circle>
+    </g>
+    <g class="dr-sweep">
+      <circle cx="140" cy="140" r="130" style="fill: none; stroke: none"></circle>
+      <path d="M140 140 L140 10 A130 130 0 0 1 232 48 Z" style="fill: var(--color-signal); opacity: 0.22"></path>
+      <line x1="140" y1="140" x2="140" y2="10" style="stroke: var(--color-signal); stroke-width: 2"></line>
+    </g>
+    <circle cx="104" cy="96" r="4" style="fill: var(--color-signal)"></circle>
+    <circle cx="104" cy="96" r="4" class="dr-pulse" style="fill: none; stroke: var(--color-signal); stroke-width: 1.5"></circle>
+    <circle cx="196" cy="182" r="2.5" class="dr-flicker" style="fill: var(--color-glitch-cyan)"></circle>
+    <circle cx="70" cy="190" r="2" class="dr-blink" style="fill: var(--color-ink)"></circle>
+    <text x="112" y="92" class="dr-mono-svg" style="font-size: 9px; fill: var(--color-ink)">LAX // HOME</text>
+  </svg>
+  <span class="t-meta absolute top-3 left-4">Scan.radius 50km</span>
+  <span class="t-meta absolute top-3 right-4 text-signal"><span class="dr-blink">●</span> Live</span>
+  <span class="t-meta absolute bottom-3 left-4">34.0522 / -118.2437</span>
+  <span class="t-meta absolute right-4 bottom-3">AZ 047°</span>
+</div>

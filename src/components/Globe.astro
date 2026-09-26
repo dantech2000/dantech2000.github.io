@@ -1,0 +1,33 @@
+---
+interface Props {
+  class?: string;
+}
+const { class: className } = Astro.props;
+---
+
+<svg viewBox="0 0 448 448" class={className} aria-hidden="true">
+  <g style="fill: none; stroke: var(--color-line); stroke-width: 1.5">
+    <circle cx="224" cy="224" r="200"></circle>
+    <ellipse cx="224" cy="224" rx="200" ry="60"></ellipse>
+    <ellipse cx="224" cy="164" rx="180" ry="44"></ellipse>
+    <ellipse cx="224" cy="284" rx="180" ry="44"></ellipse>
+    <ellipse cx="224" cy="104" rx="130" ry="26"></ellipse>
+    <ellipse cx="224" cy="344" rx="130" ry="26"></ellipse>
+  </g>
+  <g style="fill: none; stroke: var(--color-line-strong); stroke-width: 1.5">
+    <ellipse cx="224" cy="224" rx="200" ry="200">
+      <animate attributeName="rx" values="200;0;200" dur="8s" repeatCount="indefinite"></animate>
+    </ellipse>
+    <ellipse cx="224" cy="224" rx="140" ry="200">
+      <animate attributeName="rx" values="140;0;140;200;140" dur="8s" repeatCount="indefinite"></animate>
+    </ellipse>
+    <ellipse cx="224" cy="224" rx="60" ry="200">
+      <animate attributeName="rx" values="60;200;60;0;60" dur="8s" repeatCount="indefinite"></animate>
+    </ellipse>
+  </g>
+  <path d="M136 152 Q224 40 336 172" class="dr-dash" style="fill: none; stroke: var(--color-signal); stroke-width: 2"></path>
+  <circle cx="136" cy="152" r="5" style="fill: var(--color-signal)"></circle>
+  <circle cx="136" cy="152" r="5" class="dr-pulse" style="fill: none; stroke: var(--color-signal); stroke-width: 2"></circle>
+  <circle cx="336" cy="172" r="4" style="fill: var(--color-glitch-cyan)"></circle>
+  <text x="146" y="176" class="dr-mono-svg" style="font-size: 10px; fill: var(--color-ink)">LAX 34.05N</text>
+</svg>

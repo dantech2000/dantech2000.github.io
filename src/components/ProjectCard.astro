@@ -1,0 +1,37 @@
+---
+import type { Project } from '~/data/projects';
+import RefreshDiagram from './diagrams/RefreshDiagram.astro';
+import DiggDiagram from './diagrams/DiggDiagram.astro';
+import AmanuDiagram from './diagrams/AmanuDiagram.astro';
+
+interface Props {
+  project: Project;
+  index: number;
+}
+
+const { project, index } = Astro.props;
+const num = String(index + 1).padStart(2, '0');
+const diagrams = { refresh: RefreshDiagram, digg: DiggDiagram, amanu: AmanuDiagram };
+const Diagram = diagrams[project.diagram];
+---
+
+<article class="dr-card">
+  <div class="dr-card__bar t-meta">
+    <span>Module {num}</span><span>{project.kind}</span>
+  </div>
+  <div class="dr-card__well dr-grid-bg dr-grid-bg--fine dr-scan">
+    <Diagram />
+  </div>
+  <div class="dr-card__body">
+    <h3 class="t-display-6 lg:t-display-5 dr-glitch dr-glitch--slow self-start" data-text={project.name}>
+      {project.name}
+    </h3>
+    <p class="t-body-s lg:t-body">{project.description}</p>
+    <ul class="dr-tags" aria-label="Stack">
+      {project.tags.map((tag) => <li class="dr-tag">{tag}</li>)}
+    </ul>
+    <a class="dr-btn dr-btn--signal dr-card__action w-full lg:w-auto lg:self-start" href={project.href}>
+      {project.linkLabel ?? 'View source'} <span aria-hidden="true">↗</span>
+    </a>
+  </div>
+</article>

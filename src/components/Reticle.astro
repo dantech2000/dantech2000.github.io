@@ -1,0 +1,33 @@
+---
+interface Props {
+  class?: string;
+}
+const { class: className } = Astro.props;
+---
+
+<svg viewBox="0 0 448 448" class={className} aria-hidden="true">
+  <g style="fill: none; stroke: var(--color-line); stroke-width: 1">
+    <circle cx="224" cy="224" r="216"></circle>
+    <circle cx="224" cy="224" r="160"></circle>
+    <circle cx="224" cy="224" r="96"></circle>
+    <line x1="0" y1="224" x2="448" y2="224"></line>
+    <line x1="224" y1="0" x2="224" y2="448"></line>
+  </g>
+  <circle cx="224" cy="224" r="200" style="fill: none; stroke: var(--color-line-strong); stroke-width: 10; stroke-dasharray: 1.2 19.7"></circle>
+  <g class="dr-spin">
+    <circle cx="224" cy="224" r="184" style="fill: none; stroke: var(--color-signal); stroke-width: 2; stroke-dasharray: 64 222; opacity: 0.7"></circle>
+  </g>
+  <g class="dr-spin-rev">
+    <circle cx="224" cy="224" r="128" style="fill: none; stroke: var(--color-line-strong); stroke-width: 1.5; stroke-dasharray: 4 8"></circle>
+  </g>
+  <g style="stroke: var(--color-signal); stroke-width: 2; fill: none">
+    <path d="M200 224 H248 M224 200 V248"></path>
+    <rect x="208" y="208" width="32" height="32"></rect>
+  </g>
+  <g class="dr-mono-svg" style="font-size: 10px; fill: var(--color-muted)">
+    <text x="236" y="16">000°</text>
+    <text x="404" y="218">090°</text>
+    <text x="236" y="444">180°</text>
+    <text x="8" y="218">270°</text>
+  </g>
+</svg>

@@ -1,0 +1,39 @@
+---
+---
+
+<svg viewBox="0 0 432 256" class="block h-full w-full" role="img" aria-label="Diagram of an EKS cluster with nodegroups scaling">
+  <g style="stroke: var(--color-line-strong); stroke-width: 1.5; fill: none">
+    <line x1="216" y1="128" x2="304" y2="128"></line>
+    <line x1="216" y1="128" x2="172" y2="204"></line>
+    <line x1="216" y1="128" x2="128" y2="128"></line>
+    <line x1="216" y1="128" x2="172" y2="52"></line>
+    <polyline points="304,128 260,204 172,204 128,128 172,52 260,52 304,128" style="stroke-dasharray: 3 5"></polyline>
+  </g>
+  <g style="stroke: var(--color-signal); stroke-width: 2; fill: none">
+    <line x1="216" y1="128" x2="260" y2="52" class="dr-dash"></line>
+    <line x1="216" y1="128" x2="260" y2="204" class="dr-dash"></line>
+  </g>
+  <g class="dr-spin">
+    <circle cx="216" cy="128" r="40" style="fill: none; stroke: var(--color-signal); stroke-width: 3; stroke-dasharray: 170 82"></circle>
+  </g>
+  <g class="dr-spin-rev">
+    <circle cx="216" cy="128" r="52" style="fill: none; stroke: var(--color-line-strong); stroke-width: 1; stroke-dasharray: 4 6"></circle>
+  </g>
+  <rect x="200" y="112" width="32" height="32" style="fill: var(--color-ground); stroke: var(--color-ink); stroke-width: 2"></rect>
+  <g style="fill: var(--color-panel); stroke: var(--color-ink); stroke-width: 1.5">
+    <rect x="297" y="121" width="14" height="14"></rect>
+    <rect x="165" y="197" width="14" height="14"></rect>
+    <rect x="121" y="121" width="14" height="14"></rect>
+    <rect x="165" y="45" width="14" height="14"></rect>
+  </g>
+  <rect x="253" y="45" width="14" height="14" style="fill: var(--color-signal)"></rect>
+  <rect x="253" y="45" width="14" height="14" class="dr-pulse" style="fill: none; stroke: var(--color-signal)"></rect>
+  <rect x="253" y="197" width="14" height="14" class="dr-flicker" style="fill: var(--color-glitch-cyan)"></rect>
+  <g class="dr-mono-svg" style="font-size: 11px; fill: var(--color-muted)">
+    <text x="276" y="50">ng-a ▲ SCALING</text>
+    <text x="276" y="216">ng-b ◆ DRAIN</text>
+    <text x="16" y="26">EKS // us-west-2</text>
+    <text x="16" y="240">$ refresh list</text>
+  </g>
+  <text x="336" y="240" class="dr-mono-svg dr-blink" style="font-size: 11px; fill: var(--color-signal)">HEALTH OK</text>
+</svg>

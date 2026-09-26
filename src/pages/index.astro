@@ -1,57 +1,252 @@
 ---
-import Layout from '~/layouts/PageLayout.astro';
-import BlogList from '~/components/blog/List.astro';
-import Headline from '~/components/blog/Headline.astro';
-import Hero from '~/components/widgets/Hero.astro';
+import Base from '~/layouts/Base.astro';
+import SectionHeader from '~/components/SectionHeader.astro';
+import ProjectCard from '~/components/ProjectCard.astro';
+import Radar from '~/components/Radar.astro';
+import Barcode from '~/components/Barcode.astro';
+import Marquee from '~/components/Marquee.astro';
+import SignalBars from '~/components/SignalBars.astro';
+import CareerTimeline from '~/components/CareerTimeline.astro';
+import Globe from '~/components/Globe.astro';
+import { projects } from '~/data/projects';
+import { jobs, yearsInOps } from '~/data/resume';
+import { channels } from '~/data/site';
+import { getPosts, formatDate } from '~/lib/posts';
 
-import { blogListRobots, findLatestPosts } from '~/utils/blog';
+const posts = (await getPosts()).slice(0, 3);
+const years = yearsInOps();
 
-export const prerender = true;
+const spec = [
+  ['Operator', 'Daniel Rodriguez'],
+  ['Class', 'DevOps / SRE'],
+  ['Base', 'Los Angeles, CA'],
+  ['In service', 'Since 2015'],
+  ['Assigned', 'Codecademy'],
+];
 
-// Get the latest blog posts for the homepage
-const posts = await findLatestPosts({ count: 6 });
-
-const metadata = {
-  title: 'DanTech Blog — Technology insights and tutorials',
-  description: 'Technology insights, tutorials, and thoughts from a developer.',
-  robots: {
-    index: blogListRobots?.index,
-    follow: blogListRobots?.follow,
-  },
-  openGraph: {
-    type: 'website',
-  },
-};
+const stack = ['AWS', 'Terraform', 'Kubernetes / EKS', 'GitHub Actions', 'Datadog', 'Cloudflare', 'Go', 'Rust', 'Swift'];
 ---
 
-<Layout metadata={metadata}>
-  <!-- Hero Section -->
-  <Hero>
-    <Fragment slot="title">
-      Welcome to <span class="text-accent dark:text-white">DevOps Dan Blog</span>
-    </Fragment>
+<Base>
+  <!-- HERO -->
+  <section class="dr-grid-bg dr-scan relative overflow-hidden border-b border-line">
+    <div class="dr-scanbar"></div>
+    <svg
+      viewBox="0 0 896 704"
+      class="pointer-events-none absolute top-16 left-0 hidden w-[896px] lg:block"
+      aria-hidden="true"
+    >
+      <g style="fill: none; stroke: var(--color-grid); stroke-width: 2">
+        <path d="M0 128 H224 L256 160 H512 L544 128 H896"></path>
+        <path d="M0 512 H128 L160 480 H416 L448 512 H704 L736 480 H896"></path>
+        <path d="M640 0 V96 L672 128"></path>
+        <path d="M320 704 V608 L352 576 H512"></path>
+      </g>
+      <g style="fill: none; stroke: var(--color-signal); stroke-width: 2; opacity: 0.5">
+        <path class="dr-trace" d="M0 128 H224 L256 160 H512 L544 128 H896"></path>
+        <path class="dr-trace" style="animation-delay: -3s" d="M0 512 H128 L160 480 H416 L448 512 H704 L736 480 H896"></path>
+      </g>
+      <g style="fill: var(--color-ground); stroke: var(--color-line-strong); stroke-width: 2">
+        <rect x="250" y="154" width="12" height="12"></rect>
+        <rect x="506" y="154" width="12" height="12"></rect>
+        <rect x="154" y="474" width="12" height="12"></rect>
+        <rect x="442" y="506" width="12" height="12"></rect>
+        <rect x="666" y="122" width="12" height="12"></rect>
+        <rect x="506" y="570" width="12" height="12"></rect>
+      </g>
+    </svg>
 
-    <Fragment slot="subtitle">
-      Technology insights, tutorials, and thoughts from a developer. Exploring the latest in web development,
-      programming, and tech trends.
-    </Fragment>
-  </Hero>
+    <div class="dr-wrap relative z-[2] flex flex-col gap-12 pt-6 pb-16 lg:gap-16 lg:pb-24">
+      <div class="t-meta flex justify-between gap-4">
+        <span>Unit // DR-2015 — Rev.26</span>
+        <span class="dr-flicker hidden md:inline">+ Personal infrastructure index</span>
+        <span>Sheet 01 / 04</span>
+      </div>
 
-  <!-- Blog Posts Section -->
-  <section class="px-6 sm:px-6 py-12 sm:py-16 lg:py-20 mx-auto max-w-4xl">
-    <Headline subtitle="Latest posts about technology, programming, and development"> Latest Posts </Headline>
-    <BlogList posts={posts} />
-    {
-      posts.length > 6 && (
-        <div class="text-center mt-8">
-          <a
-            href="/blog"
-            class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+      <div class="grid items-end gap-x-6 gap-y-16 lg:grid-cols-12">
+        <div class="relative flex flex-col gap-6 lg:col-span-8 lg:gap-8">
+          <div class="flex flex-col gap-4 lg:gap-6">
+            <div class="dr-titleblock">
+              <span class="dr-eyebrow">▸ DevOps engineer / site reliability</span>
+              <h1 class="t-display-3 lg:t-display-2 xl:t-display-1 dr-jitter">
+                <span class="dr-glitch" data-text="DevOps">DevOps</span><br /><span
+                  class="dr-glitch text-signal"
+                  data-text="Dan">Dan</span
+                ><span class="dr-blink text-line-strong" aria-hidden="true">_</span>
+                <span class="sr-only">, Daniel Rodriguez</span>
+              </h1>
+            </div>
+            <p class="t-body lg:t-body-l">
+              Daniel Rodriguez. I build and run cloud infrastructure: Terraform, Kubernetes, CI/CD, and the monitoring
+              that keeps it all standing. Currently keeping the lights on at Codecademy.
+            </p>
+          </div>
+          <div class="flex flex-col gap-2 sm:flex-row sm:gap-4">
+            <a class="dr-btn dr-btn--primary" href="/resume">View resume <span aria-hidden="true">→</span></a>
+            <a class="dr-btn dr-btn--secondary" href="#projects">Browse projects</a>
+          </div>
+          <div class="dr-slice top-16 left-0 h-1.5 w-60 bg-glitch-cyan lg:top-40 lg:h-2 lg:w-[512px]"></div>
+          <div
+            class="dr-slice top-32 left-12 h-2 w-40 bg-glitch-magenta [animation-delay:-0.4s] lg:top-[272px] lg:left-32 lg:h-3 lg:w-72"
           >
-            View All Posts
-          </a>
+          </div>
+          <div class="dr-slice top-[352px] left-8 hidden h-1 w-[640px] bg-signal [animation-delay:-1.1s] lg:block"></div>
         </div>
-      )
-    }
+
+        <aside class="dr-panel hidden lg:col-span-4 lg:block" aria-label="Spec sheet">
+          <Radar />
+          <dl class="t-data border-b border-line">
+            {
+              spec.map(([k, v]) => (
+                <div class="dr-spec__row">
+                  <dt class="text-muted">{k}</dt>
+                  <dd>{v}</dd>
+                </div>
+              ))
+            }
+          </dl>
+          <div class="flex items-center justify-between px-4 py-3">
+            <Barcode />
+            <span class="t-meta">DR-2015-LA</span>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <svg
+      viewBox="0 0 1440 40"
+      preserveAspectRatio="none"
+      class="pointer-events-none absolute bottom-4 left-0 z-[1] h-8 w-full lg:bottom-6 lg:h-10"
+      aria-hidden="true"
+    >
+      <path
+        d="M0 20 H176 L184 6 L192 34 L200 20 H416 L424 2 L432 38 L440 12 L448 26 L456 20 H752 L760 8 L768 32 L776 20 H1016 L1024 4 L1032 36 L1040 20 H1440"
+        class="dr-dash"
+        style="fill: none; stroke: var(--color-signal); stroke-width: 1.5; opacity: 0.7"
+        vector-effect="non-scaling-stroke"></path>
+    </svg>
+    <span class="t-meta dr-flicker absolute bottom-16 left-12 z-[2] hidden text-line-strong lg:block" aria-hidden="true">
+      0x4452 0x2015 ▚▚ 7F3A E1C0 — Checksum ok — All systems nominal
+    </span>
+    <div class="dr-hazard absolute right-0 bottom-0 left-0 z-[5] h-2 lg:h-2.5"></div>
   </section>
-</Layout>
+
+  <Marquee items={stack} />
+
+  <!-- PROJECTS -->
+  <section id="projects" class="dr-section">
+    <div class="dr-wrap">
+      <SectionHeader eyebrow="[03] // Build output" title="Projects">
+        <a class="dr-link" href="https://github.com/dantech2000">All repos on GitHub <span aria-hidden="true">↗</span></a>
+      </SectionHeader>
+      <div class="grid gap-4 lg:grid-cols-3 lg:gap-6">
+        {projects.map((project, index) => <ProjectCard project={project} index={index} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICE RECORD -->
+  <section class="dr-section">
+    <div class="dr-wrap grid gap-x-6 gap-y-8 lg:grid-cols-12">
+      <div class="flex flex-col gap-6 lg:col-span-4 lg:gap-16">
+        <div class="flex flex-col gap-6 lg:gap-8">
+          <div class="flex flex-col gap-4 lg:gap-6">
+            <div class="dr-titleblock">
+              <span class="dr-eyebrow">[02] // Service record</span>
+              <h2 class="t-display-4 lg:t-display-3 dr-glitch-hover">{years}+ yrs<br class="hidden lg:block" /> in ops</h2>
+            </div>
+            <p class="t-body">
+              From web-hosting support in 2015 to running AWS infrastructure for a platform used by millions of learners.
+            </p>
+          </div>
+          <a class="dr-btn dr-btn--inverse hidden self-start lg:inline-flex" href="/resume"
+            >Full resume <span aria-hidden="true">→</span></a
+          >
+        </div>
+        <div class="hidden lg:block"><CareerTimeline /></div>
+      </div>
+      <div class="lg:col-span-8">
+        <ol class="dr-rule">
+          {
+            jobs.map((job, i) => (
+              <li class="dr-row grid-cols-[1fr_auto] lg:grid-cols-[160px_1fr_200px_28px]">
+                <span class="t-data order-1 text-muted lg:order-none">{job.years}</span>
+                <span class="t-data order-2 text-right lg:order-3 lg:text-left">{job.company}</span>
+                <span class="t-display-7 lg:t-display-6 dr-glitch-hover order-3 lg:order-2">{job.short}</span>
+                <SignalBars active={i === 0} class="order-4 self-center justify-self-end" />
+              </li>
+            ))
+          }
+        </ol>
+        <a class="dr-btn dr-btn--inverse mt-6 w-full lg:hidden" href="/resume"
+          >Full resume <span aria-hidden="true">→</span></a
+        >
+      </div>
+    </div>
+  </section>
+
+  <!-- WRITING (shows once a published post exists) -->
+  {
+    posts.length > 0 && (
+      <section id="log" class="dr-section">
+        <div class="dr-wrap">
+          <SectionHeader eyebrow="[05] // Transmission log" title="Writing">
+            <a class="dr-link" href="/blog">
+              All entries <span aria-hidden="true">→</span>
+            </a>
+          </SectionHeader>
+          <ul class="dr-rule">
+            {posts.map((post) => (
+              <li>
+                <a href={`/blog/${post.id}`} class="dr-row lg:grid-cols-[160px_1fr_200px]">
+                  <span class="t-data text-muted">{formatDate(post.data.date)}</span>
+                  <span class="flex flex-col gap-2">
+                    <span class="t-display-7 lg:t-display-6 dr-glitch-hover normal-case">{post.data.title}</span>
+                    <span class="t-body-s text-muted">{post.data.description}</span>
+                  </span>
+                  <span class="t-label hidden text-right font-normal lg:block">
+                    {post.data.tags[0] ? `#${post.data.tags[0]} ` : ''}→
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    )
+  }
+
+  <!-- CONTACT -->
+  <section id="contact" class="dr-grid-bg dr-scan relative overflow-hidden border-b border-line">
+    <div class="dr-scanbar [animation-duration:9s]"></div>
+    <Globe
+      class="pointer-events-none absolute top-6 -right-16 w-72 lg:top-12 lg:right-12 lg:w-[448px]"
+    />
+    <div class="dr-wrap relative z-[2] flex flex-col gap-8 pt-16 pb-16 lg:gap-16 lg:pt-32 lg:pb-24">
+      <div class="dr-titleblock">
+        <span class="dr-eyebrow">[04] // Open channel</span>
+        <h2 class="t-display-4 md:t-display-3 xl:t-display-2 dr-jitter">
+          Let's <span class="dr-glitch text-signal" data-text="connect">connect</span>
+        </h2>
+      </div>
+      <ul class="grid max-w-[896px] gap-2 md:grid-cols-2 lg:gap-6">
+        {
+          channels.map((c) => (
+            <li>
+              <a class="dr-channel" href={c.href} rel="me">
+                <span class="flex flex-col gap-1 lg:gap-2">
+                  <span class="t-meta hidden lg:block">{c.id}</span>
+                  <span class="t-display-7 lg:t-display-6">{c.name}</span>
+                  <span class="t-data text-ink-2 normal-case">{c.handle}</span>
+                </span>
+                <span class="t-display-7 lg:t-display-6 text-signal" aria-hidden="true">
+                  ↗
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+</Base>

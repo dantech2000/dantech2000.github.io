@@ -1,0 +1,94 @@
+---
+import Logo from './Logo.astro';
+import { nav, blogNavItem, site } from '~/data/site';
+import { getPosts } from '~/lib/posts';
+
+const posts = await getPosts();
+const items = posts.length > 0 ? [...nav, blogNavItem] : nav;
+
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isCurrent = (href: string) =>
+  href === path || (href !== '/' && !href.includes('#') && path.startsWith(href));
+---
+
+<header class="sticky top-0 z-50 border-b border-line bg-ground/95 backdrop-blur-sm">
+  <div class="dr-wrap dr-nav">
+    <Logo />
+    <nav aria-label="Main" class="hidden lg:block">
+      <ul class="t-label flex gap-8 font-normal tracking-[0.08em]">
+        {
+          items.map((item) => (
+            <li>
+              <a class="dr-nav__link" href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>
+                [{item.num}] {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+    <span class="t-meta hidden xl:block">
+      {site.location.label} {site.location.lat} / {site.location.lon}
+    </span>
+    <button
+      type="button"
+      class="dr-btn dr-btn--secondary w-12 border-line-strong px-0 lg:hidden"
+      aria-label="Open menu"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      data-menu-toggle
+    >
+      <svg width="20" height="14" viewBox="0 0 20 14" aria-hidden="true">
+        <path data-menu-icon="open" d="M0 1h20M0 7h20M0 13h12" style="fill: none; stroke: currentColor; stroke-width: 2"
+        ></path>
+        <path
+          data-menu-icon="close"
+          d="M3 0l14 14M17 0L3 14"
+          style="fill: none; stroke: currentColor; stroke-width: 2; display: none"></path>
+      </svg>
+    </button>
+  </div>
+  <nav id="mobile-menu" aria-label="Main" class="border-t border-line lg:hidden" hidden>
+    <ul class="dr-wrap flex flex-col py-2">
+      {
+        items.map((item) => (
+          <li class="border-b border-line last:border-b-0">
+            <a
+              class="dr-nav__link t-display-7 justify-between"
+              href={item.href}
+              aria-current={isCurrent(item.href) ? 'page' : undefined}
+            >
+              <span>{item.label}</span>
+              <span class="t-meta">[{item.num}]</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</header>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+  const menu = document.getElementById('mobile-menu');
+  if (toggle && menu) {
+    const setOpen = (open: boolean) => {
+      menu.hidden = !open;
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      toggle.querySelectorAll<SVGPathElement>('[data-menu-icon]').forEach((icon) => {
+        icon.style.display = (icon.dataset.menuIcon === 'close') === open ? '' : 'none';
+      });
+    };
+    toggle.addEventListener('click', () => setOpen(menu.hidden));
+    menu.addEventListener('click', (event) => {
+      if ((event.target as HTMLElement).closest('a')) setOpen(false);
+    });
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && !menu.hidden) {
+        setOpen(false);
+        toggle.focus();
+      }
+    });
+  }
+</script>

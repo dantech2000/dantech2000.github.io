@@ -1,24 +1,23 @@
 ---
-import Layout from '~/layouts/Layout.astro';
-import { getHomePermalink } from '~/utils/permalinks';
-
-const title = `Error 404`;
+import Base from '~/layouts/Base.astro';
 ---
 
-<Layout metadata={{ title }}>
-  <section class="flex items-center h-full p-16">
-    <div class="container flex flex-col items-center justify-center px-5 mx-auto my-8">
-      <div class="max-w-md text-center">
-        <h2 class="mb-8 font-bold text-9xl">
-          <span class="sr-only">Error</span>
-          <span class="text-primary">404</span>
-        </h2>
-        <p class="text-3xl font-semibold md:text-3xl">Sorry, we couldn't find this page.</p>
-        <p class="mt-4 mb-8 text-lg text-muted dark:text-slate-400">
-          But dont worry, you can find plenty of other things on our homepage.
-        </p>
-        <a rel="noopener noreferrer" href={getHomePermalink()} class="btn ml-4">Back to homepage</a>
+<Base title="Signal lost">
+  <section class="dr-grid-bg dr-scan relative overflow-hidden border-b border-line">
+    <div class="dr-scanbar"></div>
+    <div class="dr-wrap relative z-[2] flex flex-col gap-8 py-24 lg:py-32">
+      <div class="dr-titleblock">
+        <span class="dr-eyebrow">Error // 404 — NXDOMAIN</span>
+        <h1 class="t-display-3 lg:t-display-1 dr-jitter">
+          <span class="dr-glitch" data-text="Signal">Signal</span><br /><span
+            class="dr-glitch text-signal"
+            data-text="lost">lost</span
+          >
+        </h1>
       </div>
+      <p class="t-body lg:t-body-l">This page doesn't exist. It may have moved when the site was rebuilt.</p>
+      <a class="dr-btn dr-btn--primary self-start" href="/">Back to home <span aria-hidden="true">→</span></a>
     </div>
+    <div class="dr-hazard absolute right-0 bottom-0 left-0 z-[5] h-2 lg:h-2.5"></div>
   </section>
-</Layout>
+</Base>

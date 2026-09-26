@@ -1,0 +1,43 @@
+---
+import Base from '~/layouts/Base.astro';
+import SectionHeader from '~/components/SectionHeader.astro';
+import { getPosts, formatDate } from '~/lib/posts';
+
+// /blog is only built once at least one published post exists.
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return posts.length > 0 ? [{ params: { index: undefined }, props: { posts } }] : [];
+}
+
+const { posts } = Astro.props;
+---
+
+<Base title="Log" description="Notes on DevOps, cloud infrastructure, and the tools I build.">
+  <section class="dr-section">
+    <div class="dr-wrap">
+      <SectionHeader eyebrow="[05] // Transmission log" title="Writing" size="t-display-4 lg:t-display-2">
+        <span class="t-meta">{String(posts.length).padStart(2, '0')} entries</span>
+      </SectionHeader>
+      <ul class="dr-rule">
+        {
+          posts.map((post) => (
+            <li>
+              <a href={`/blog/${post.id}`} class="dr-row lg:grid-cols-[160px_1fr_200px]">
+                <span class="t-data text-muted">{formatDate(post.data.date)}</span>
+                <span class="flex flex-col gap-2">
+                  <span class="t-display-7 lg:t-display-6 dr-glitch-hover normal-case">{post.data.title}</span>
+                  <span class="t-body-s text-muted">{post.data.description}</span>
+                </span>
+                <span class="dr-tags lg:justify-end">
+                  {post.data.tags.map((tag) => (
+                    <span class="dr-tag">{tag}</span>
+                  ))}
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+</Base>
