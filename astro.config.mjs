@@ -10,7 +10,11 @@ export default defineConfig({
   trailingSlash: 'never',
   // Emit resume.html instead of resume/index.html so GitHub Pages serves /resume
   // directly, without a redirect to /resume/.
-  build: { format: 'file' },
+  build: {
+    format: 'file',
+    // The stylesheet is ~10KB gzipped; inlining it removes a render-blocking request.
+    inlineStylesheets: 'always',
+  },
   integrations: [mdx(), sitemap()],
   vite: {
     plugins: [tailwindcss()],

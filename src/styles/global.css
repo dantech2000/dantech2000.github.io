@@ -529,6 +529,8 @@
   .dr-glitch::before,
   .dr-glitch::after {
     content: attr(data-text);
+    /* Empty alt text: the channel copies are decorative, so screen readers skip them. */
+    content: attr(data-text) / '';
     position: absolute;
     left: 0;
     top: 0;
